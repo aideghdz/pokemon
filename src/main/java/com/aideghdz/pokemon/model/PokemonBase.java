@@ -1,10 +1,10 @@
 package com.aideghdz.pokemon.model;
 
-import com.aideghdz.pokemon.model.response.PokemonAbility;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import skaro.pokeapi.resource.pokemon.PokemonAbility;
 
 import java.util.List;
 
@@ -14,11 +14,11 @@ import java.util.List;
 @Builder
 public class PokemonBase {
 
-    protected Long id;
+    protected Integer id;
     protected String name;
     protected String photo;
     protected String type;
-    protected Double weight;
-    protected List<Ability> abilities;
+    protected Integer weight;
+    protected List<PokemonAbility> abilities;
 
 }

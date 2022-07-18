@@ -1,9 +1,13 @@
 package com.aideghdz.pokemon.service;
 
-import com.aideghdz.pokemon.model.Pokemon;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.aideghdz.pokemon.model.PokemonBase;
+import com.aideghdz.pokemon.util.CustomPage;
+import skaro.pokeapi.query.PageQuery;
+import skaro.pokeapi.resource.NamedApiResourceList;
+import skaro.pokeapi.resource.pokemon.Pokemon;
 
 public interface PokemonService {
-    Page<Pokemon> findAllPage(Pageable pageable);
+    CustomPage<PokemonBase> findAllPage(PageQuery pageable);
+
+
 }
