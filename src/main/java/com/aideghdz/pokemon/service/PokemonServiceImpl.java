@@ -32,26 +32,27 @@ public class PokemonServiceImpl implements PokemonService{
     @Override
     public CustomPage<PokemonBase> findAllPage(PageQuery pageable) {
         NamedApiResourceList<Pokemon> resource = pokeApiClient.getResource(Pokemon.class,pageable).block();
-        List<NamedApiResource<Pokemon>> results = resource.getResults();
-        List<PokemonBase> pokemons = getBasePokemon(results);
+        List<NamedApiResource<Pokemon>> results = new LinkedList<NamedApiResource<Pokemon>>();
         CustomPage<PokemonBase> result = new CustomPage<>();
-        result.setResults(pokemons);
-        result.setCount(resource.getCount());
-        result.setNext(resource.getNext());
-        result.setPrevious(resource.getPrevious());
+        if(resource != null){
+             results = resource.getResults();
+             result.setCount(resource.getCount());
+             result.setNext(resource.getNext());
+             result.setPrevious(resource.getPrevious());
+        }
+        result.setResults(getBasePokemon(results));
         return result;
     }
 
 
     private List<PokemonBase> getBasePokemon(List<NamedApiResource<Pokemon>> results){
         List<Pokemon> pokemons = new LinkedList<Pokemon>();
-        results.stream().forEach( p ->{
+        results.forEach( p ->{
             Pokemon pokemon =  pokeApiClient.getResource(Pokemon.class , p.getName()).block();
             pokemons.add(pokemon);
 
         });
-        List<PokemonBase> basicPokemons = pokemonBaseMapper.convert(pokemons);
-        return basicPokemons;
+        return  pokemonBaseMapper.convert(pokemons);
     }
 
 
